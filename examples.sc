@@ -11,7 +11,7 @@ def module[F[T] <: Monad[T, F]](elev: Lift[F], service: Service): F[Int] = for {
   elems <- elev.lift(5) zip elev.lift(7)
   (a, b) = elems
   c = a + b
-    
+  service = new Service(elev)
   _ <- service.put(1, 100)
   results <- service.get(1) zip service.get(1)
   (l, r) = results
