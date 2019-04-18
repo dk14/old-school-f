@@ -1,8 +1,4 @@
 //Functorial contracts 
-trait Showable[T]{
-   def show: T //unsafe
-}
-
 trait Functor[T, F[T] <: Functor[T, F]]{
    def map[U](f: T => U): F[U]
 }
@@ -20,3 +16,10 @@ trait Monad[T, F[T] <: Monad[T, F]] extends ApFunctor[T, F]{
 trait Lift[F[T] <: Monad[T, F]] {
    def lift[T](value: => T): F[T]
 }
+
+//Helpers
+
+trait Showable[T]{
+   def show: T //unsafe
+}
+
