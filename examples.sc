@@ -6,7 +6,6 @@ class Service[F[T] <: Monad[T, F]](elevator: Lift[F]) {
   def put(id: Int, value: Int): F[Unit] = lift{ Thread.sleep(3000); println("PUT")}
 }
 
-
 def module[F[T] <: Monad[T, F]](elevator: Lift[F], service: Service): F[Int] = for {
   elems <- elevator.lift(5) zip elevator.lift(7)
   (a, b) = elems
