@@ -1,5 +1,5 @@
 # old-school-f
-Functors. Just functors! 
+Functors. Just f*** functors! 
 
 Typesafe, NO implicits; NO higher-orders;
 
