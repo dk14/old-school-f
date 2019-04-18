@@ -8,13 +8,13 @@ class Service[F[T] <: Monad[T, F]](elev: Lift[F]) {
 
 
 def module[F[T] <: Monad[T, F]](elev: Lift[F], service: Service): F[Int] = for {
-    elems <- elev.lift(5) zip elev.lift(7)
-    (a, b) = elems
-    c = a + b
+  elems <- elev.lift(5) zip elev.lift(7)
+  (a, b) = elems
+  c = a + b
     
-    _ <- service.put(1, 100)
-    results <- service.get(1) zip service.get(1)
-    (l, r) = results
+  _ <- service.put(1, 100)
+  results <- service.get(1) zip service.get(1)
+  (l, r) = results
 } yield l + r
 
 module(IdLift).show
