@@ -3,7 +3,7 @@ Functors. Just f*** functors!
 
 Typesafe! NO implicits; NO type-classes; NO higher-orders;
 
-ONLY classic inheritance and F-bounded polymorphism!
+ONLY CLASSIC INHERITANCE and F-bounded polymorphism!
 
 - all compatible with "do-notations" aka "for-comprehensions" (see examples.sc) 
 - zip's as a simpler alternative to applicative builders
