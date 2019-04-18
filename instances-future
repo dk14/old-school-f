@@ -1,3 +1,4 @@
+import $file.model
 import scala.concurrent._
 
 class FutureMonad[T](val underlying: Future[T], ec: ExecutionContext) extends Monad[T, FutureMonad] {
