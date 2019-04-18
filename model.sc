@@ -27,7 +27,7 @@ trait ContraFunctor[T, G[T] <: Functor[T, G]]{
 }
 
 trait Adjoint[F[X] <: Functor[X, F], G[X] <: Functor[X, G], C, D]{
-  type HomC = F[C] => D
+  type HomC = F[C] => D //is it a distict set or do I need an index?
   type HomD = C => F[D]
   
   def there(from: HomC): HomD
