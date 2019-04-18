@@ -1,4 +1,5 @@
-//Id implementations:
+import $file.model
+
 class IdMonad[T](data: T) extends Monad[T, IdMonad] with Showable[T]{
   def map[U](f: T => U): IdMonad[U] = new IdMonad[U](f(data))
   def flatMap[U](f: T => IdMonad[U]): IdMonad[U] = f(data)
