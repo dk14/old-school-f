@@ -12,3 +12,4 @@ Notes:
 
 - it could be ported only to programming languages without erasures or the ones workarounding it (like scala)
 - the dispatching is dynamic, but there aren't much overrides, so `invokedynamic` in JVM shouldn't take too much time (presumably).
+- technically all functors are higher-order, and F[T] is higher than `T` - though in scala-slang we only call `F[_]` higher order type. 
