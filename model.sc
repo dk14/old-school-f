@@ -35,7 +35,7 @@ trait Adjoint[F[T] <: Functor[T, F], G[T] <: Functor[T, G], X, Y]{
 //Dual
 
 trait ContraFunctor[T, G[T] <: Functor[T, G]]{
-   def contramap[U](f: U => T): G[U]
+  def contramap[U](f: U => T): G[U]
 }
 
 //Helpers
