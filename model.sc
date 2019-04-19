@@ -31,7 +31,9 @@ trait Adjoint[F[T] <: Functor[T, F], G[T] <: Functor[T, G], X, Y]{
   type HomD = X => G[Y]
   
   def there(from: HomC): HomD
-  def back(from: HomD): HomC 
+  def back(from: HomD): HomC
+  
+  //This looks same: https://alvinalexander.com/java/jwarehouse/scalaz-7.3/core/src/main/scala/scalaz/Adjunction.scala.shtml
 }
 
 //Helpers
