@@ -22,10 +22,6 @@ trait NaturalTransformation[F[T] <: Functor[T, F], G[T] <: Functor[T, G]]{
     def transform(source: F[T]): G[T]
 }
 
-trait ContraFunctor[T, G[T] <: Functor[T, G]]{
-   def contramap[U](f: U => T): G[U]
-}
-
 trait Adjoint[F[T] <: Functor[T, F], G[T] <: Functor[T, G], X, Y]{
   type HomC = F[X] => Y //is it a distict set or do I need an index?
   type HomD = X => G[Y]
@@ -34,6 +30,12 @@ trait Adjoint[F[T] <: Functor[T, F], G[T] <: Functor[T, G], X, Y]{
   def back(from: HomD): HomC
   
   //This looks same: https://alvinalexander.com/java/jwarehouse/scalaz-7.3/core/src/main/scala/scalaz/Adjunction.scala.shtml
+}
+
+//Dual
+
+trait ContraFunctor[T, G[T] <: Functor[T, G]]{
+   def contramap[U](f: U => T): G[U]
 }
 
 //Helpers
