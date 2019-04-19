@@ -23,7 +23,7 @@ trait NaturalTransformation[F[T] <: Functor[T, F], G[T] <: Functor[T, G]]{
 }
 
 trait Adjoint[F[T] <: Functor[T, F], G[T] <: Functor[T, G], X, Y]{
-  type HomC = F[X] => Y //is it a distict set or do I need an index?
+  type HomC = F[X] => Y //is it a distict set or do I need an index? invoke axiom of choice?
   type HomD = X => G[Y]
   
   def there(from: HomC): HomD
