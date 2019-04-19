@@ -19,7 +19,7 @@ trait Lift[F[T] <: Monad[T, F]] {
 
 
 trait NaturalTransformation[F[T] <: Functor[T, F], G[T] <: Functor[T, G]]{
-    def transform(source: F[T]): G[T]
+  def transform(source: F[T]): G[T]
 }
 
 trait Adjoint[F[T] <: Functor[T, F], G[T] <: Functor[T, G], X, Y]{
