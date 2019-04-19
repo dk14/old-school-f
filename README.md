@@ -1,7 +1,7 @@
 # old-school-f
 Functors. Just f*** functors! 
 
-Typesafe! NO implicits; NO type-classes; NO higher-orders;
+Typesafe! NO implicits; NO type-classes; NO higher-orders (no `F[_]`s);
 
 ONLY CLASSIC INHERITANCE and F-bounded polymorphism!
 
