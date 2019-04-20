@@ -1,6 +1,6 @@
 import $file.instances-cps
 
-def module(elevator: LiftToCps with LiftToForkedCpsMixin): CpsMonad[Int] = for{
+def module(elevator: LiftToCps with LiftToForkedCpsMixin): CpsMonad[Int] = for {
   four <- elevator.fork{Thread.sleep(1000);5}.map(_ - 1)
   _ = println(four)
   six <- elevator.lift(6)
