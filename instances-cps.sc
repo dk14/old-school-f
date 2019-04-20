@@ -14,27 +14,37 @@ class CpsMonad[T](val continue: CallBack[T] => Unit) extends Monad[T, CpsMonad]{
 }
 
 class LiftToCps extends Lift[CpsMonad] {
-  def lift[T](value: => T) = liftContinuation(cb => cb.submit(value))
+  def lift[T](value: => T): CpsMonad[T] = liftContinuation(cb => cb.submit(value))
   def liftContinuation[T](continue: CallBack[T] => Unit): CpsMonad[T] = new CpsMonad(continue) 
 }
- 
-import scala.concurrent._
-import scala.util._
 
-class LiftToForkedCps(ec: ExecutionContext) extends LiftToCps {
-  def fork[T](worker: => T) = liftContinuation[T]{cb => 
-    ec.execute(new Runnable{
+trait LiftToForkedCpsMixin extends LiftToCps {
+  def fork[T](worker: => T): CpsMonad[T]
+}
+
+import java.util.concurrent._
+class LiftToForkedCpsJvm(exec: Executor) extends LiftToCps with LiftToForkedCpsMixin {
+  def fork[T](worker: => T): CpsMonad[T] = liftContinuation[T]{ cb => 
+    exec.execute(new Runnable{
       def run = cb.submit(worker)
     })
   }
+  
+  import locks._
     
   //should be called only once
-  def finalize[T](monad: CpsMonad[T])(postShutdownHandler: T => Unit) = {
-      val monitor = new Object
-      monad.foreach{x => //TODO make foreach private package
-        postShutdownHandler(x)
-        monitor.notifyAll()
-      }
-      monitor.synchronized(monitor.wait(3000))     
+  def finalizeComputation[T](monad: CpsMonad[T])(postShutdownHandler: T => Unit) = {
+    println("Shutting down Cps")
+    val lock = new ReentrantLock()
+    lock.lock()
+    val finalized = lock.newCondition()
+    monad.foreach{x => //TODO try catch
+      lock.lock()
+      postShutdownHandler(x)
+      finalized.signal()
+      lock.unlock() //TODO try catch
+    }
+    finalized.await()
+    lock.unlock()
   } 
 }
