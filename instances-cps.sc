@@ -31,7 +31,7 @@ class LiftToForkedCps(ec: ExecutionContext) extends LiftToCps {
   //should be called only once
   def finalize[T](monad: CpsMonad[T])(postShutdownHandler: T => Unit) = {
       val monitor = new Object
-      monad.foreach{x =>
+      monad.foreach{x => //TODO make foreach private package
         postShutdownHandler(x)
         monitor.notifyAll()
       }
