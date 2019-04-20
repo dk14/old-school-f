@@ -22,7 +22,7 @@ trait EndoFunctor[C, F[T] <: EndoFunctor[T, F]]{
   def map[A <: C, B <: C](f: A => B): F[B] 
 }
 
-//-----------Commutative diagrams------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
 
 trait FAlgebra[C, A <: C, B <: C, F[T] <: EndoFunctor[T, F]] { //A and B are objects in C
   
