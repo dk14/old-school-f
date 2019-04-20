@@ -6,7 +6,7 @@ Typesafe! NO implicits; NO type-classes; NO `F[_]`s;
 ONLY CLASSIC INHERITANCE and F-bounded polymorphism!
 
 - all compatible with "do-notations" aka "for-comprehensions" (see [examples.sc](examples.sc)) 
-- zip's as a simpler alternative to applicative builders
+- zip's as a simpler alternative to applicative builders, lol
 
 Notes: 
 
