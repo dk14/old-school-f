@@ -1,4 +1,5 @@
 //--------Functorial contracts--------------------------------------------------------------
+
 trait Functor[T, F[T] <: Functor[T, F]]{
   def map[U](f: T => U): F[U]
 }
