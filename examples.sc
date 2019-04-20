@@ -17,4 +17,4 @@ def module[F[T] <: Monad[T, F]](elevator: Lift[F], service: Service): F[Int] = f
 } yield l + r
 
 module(IdLift).show
-module(new FutureLift(ExecutionContext.Implicits.global)).show
+module(new FutureLift(ExecutionContext.global)).show
