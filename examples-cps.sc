@@ -1,11 +1,12 @@
 import $file.instances-cps
 
-def module(elevator: LiftToForkedCps): CpsMonad[Int] = for{
-  four <- elevator.fork(5).map(_ - 1)
+def module(elevator: LiftToCps with LiftToForkedCpsMixin): CpsMonad[Int] = for{
+  four <- elevator.fork{Thread.sleep(1000);5}.map(_ - 1)
   _ = println(four)
   six <- elevator.lift(6)
 } yield four + six
 
-val cpsProgram = new LiftToForkedCps(ExecutionContext.global)
+import java.util.concurrent._
+val cpsProgram = new LiftToForkedCpsJvm(Executors.newFixedThreadPool(10))
 val m = module(cpsProgram)
-cpsProgram.finalize(m)(println)
+cpsProgram.finalizeComputation(m)(println)
