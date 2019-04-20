@@ -31,14 +31,12 @@ trait FAlgebra[C, A <: C, B <: C, F[T] <: EndoFunctor[T, F]] { //A and B are obj
   type LeftPath = (A => B) => CMorphism[A]
   type RightPath = CMorphism[B] => F[A => B]
   
-  //Equivalence
-  def there(from: LeftPath): RightPath
-  def back(from: RightPath): LeftPath
-  
-  //Instances
   val algebraInstanceA: (A, CMorphism[A])
   val algebraInstanceB: (B, CMorphism[B])  
-    
+
+  def there(from: LeftPath): RightPath
+  def back(from: RightPath): LeftPath
+      
 }
 
 trait NaturalTransformation[F[T] <: Functor[T, F], G[T] <: Functor[T, G]]{
