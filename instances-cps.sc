@@ -28,7 +28,7 @@ trait LiftToForkedCpsMixin extends LiftToCps {
 import java.util.concurrent._
 class LiftToForkedCpsJvm(exec: Executor) extends LiftToCps with LiftToForkedCpsMixin {
   def fork[T](worker: => T): CpsMonad[T] = liftContinuation[T]{ cb => 
-    exec.execute(new Runnable {
+    exec.execute(new Runnable { //TODO preserve stacktrace in here
       def run = cb.submit(worker)
     })
   }
