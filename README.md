@@ -7,6 +7,7 @@ ONLY CLASSIC INHERITANCE and F-bounded polymorphism!
 
 - all compatible with "do-notations" aka "for-comprehensions" (see [examples.sc](examples.sc)) 
 - zip's as a simpler alternative to applicative builders, lol
+- continuation passing style (cps) for async calls (see [examples-cps.sc](examples-cps.sc)) 
 
 Notes: 
 
