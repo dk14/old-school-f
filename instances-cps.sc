@@ -35,7 +35,7 @@ class LiftToForkedCpsJvm(exec: Executor) extends LiftToCps with LiftToForkedCpsM
   
   import locks._
     
-  //should be called only once
+  //should be called from `main` thread
   def finalizeComputation[T](monad: CpsMonad[T])(postShutdownHandler: T => Unit) = {
     println("Shutting down Cps")
     val lock = new ReentrantLock()
