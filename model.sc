@@ -14,7 +14,7 @@ trait Monad[T, F[T] <: Monad[T, F]] extends ApFunctor[T, F] {
   def ap[U](f: F[T => U]): F[U] = flatMap(x => f.map(func => func(x)))
 }
 
-trait Lift[F[T] <: Monad[T, F]] {
+trait Lift[F[T] <: Monad[T, F]] { //factory for Monads (aka type-constructor)
   def lift[T](value: => T): F[T]
 }
 
