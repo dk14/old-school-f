@@ -40,6 +40,7 @@ trait FAlgebra[C, A <: C, B <: C, F[T] <: EndoFunctor[T, F]] { //A and B are obj
   
   //TODO: realias pathes, like (F[A] => A => A) => B vs (F[A => B] => F[B]) => B
   //TODO: show that both pathes can get us from F[A] to B
+  //TODO: add initial algebras with Instances like lists and trees
       
 }
 
