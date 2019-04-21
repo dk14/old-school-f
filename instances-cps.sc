@@ -18,6 +18,9 @@ class LiftToCps extends Lift[CpsMonad] {
   def liftContinuation[T](continue: CallBack[T] => Unit): CpsMonad[T] = new CpsMonad(continue) 
 }
 
+
+//--------Multithreading (determinstic)----------------
+//TODO non-deterministic zip
 trait LiftToForkedCpsMixin extends LiftToCps {
   def fork[T](worker: => T): CpsMonad[T]
 }
