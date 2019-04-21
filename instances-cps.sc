@@ -10,7 +10,7 @@ class CpsMonad[T](val continue: CallBack[T] => Unit) extends Monad[T, CpsMonad]{
   def map[U](f: T => U): CpsMonad[U] = new CpsMonad(newcb => continue(CallBack(x => newcb.submit(f(x)))))
   def flatMap[U](f: T => CpsMonad[U]): CpsMonad[U] = 
     new CpsMonad(newcb => continue(CallBack(x => f(x).continue(CallBack(y => newcb.submit(y))))))
-  def foreach(f: T => Unit): Unit = continue(CallBack(f)) //incapsulate?
+  def foreach(f: T => Unit): Unit = continue(CallBack(f)) //TODO: incapsulate?
 }
 
 class LiftToCps extends Lift[CpsMonad] {
