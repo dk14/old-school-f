@@ -6,7 +6,7 @@ import $file.model
 case class CallBack[T](submit: T => Unit)
 
 //TODO implement trampolines to support safe loops (should be implemeented separately in order to preserve stacktraces for non-loops)
-class CpsMonad[T](val continue: CallBack[T] => Unit) extends Monad[T, CpsMonad]{
+class CpsMonad[T](val continue: CallBack[T] => Unit) extends Monad[T, CpsMonad] {
   def map[U](f: T => U): CpsMonad[U] = new CpsMonad(newcb => continue(CallBack(x => newcb.submit(f(x)))))
   def flatMap[U](f: T => CpsMonad[U]): CpsMonad[U] = 
     new CpsMonad(newcb => continue(CallBack(x => f(x).continue(CallBack(y => newcb.submit(y))))))
@@ -28,7 +28,7 @@ trait LiftToForkedCpsMixin extends LiftToCps {
 import java.util.concurrent._
 class LiftToForkedCpsJvm(exec: Executor) extends LiftToCps with LiftToForkedCpsMixin {
   def fork[T](worker: => T): CpsMonad[T] = liftContinuation[T]{ cb => 
-    exec.execute(new Runnable{
+    exec.execute(new Runnable {
       def run = cb.submit(worker)
     })
   }
@@ -41,7 +41,7 @@ class LiftToForkedCpsJvm(exec: Executor) extends LiftToCps with LiftToForkedCpsM
     val lock = new ReentrantLock()
     lock.lock()
     val finalized = lock.newCondition()
-    monad.foreach{x => //TODO try catch
+    monad.foreach { x => //TODO try catch
       lock.lock()
       postShutdownHandler(x)
       finalized.signal()
