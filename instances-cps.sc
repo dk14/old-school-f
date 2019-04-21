@@ -5,7 +5,7 @@ import $file.model
 
 case class CallBack[T](submit: T => Unit)
 
-//TODO trampolines
+//TODO implement trampolines to support safe loops (should be implemeented separately in order to preserve stacktraces for non-loops)
 class CpsMonad[T](val continue: CallBack[T] => Unit) extends Monad[T, CpsMonad]{
   def map[U](f: T => U): CpsMonad[U] = new CpsMonad(newcb => continue(CallBack(x => newcb.submit(f(x)))))
   def flatMap[U](f: T => CpsMonad[U]): CpsMonad[U] = 
