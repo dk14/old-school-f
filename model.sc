@@ -28,14 +28,18 @@ trait FAlgebra[C, A <: C, B <: C, F[T] <: EndoFunctor[T, F]] { //A and B are obj
   
   type CMorphism[X] = F[X] => X //selection
   
-  type LeftPath = (A => B) => CMorphism[A]
-  type RightPath = CMorphism[B] => F[A => B]
+  type LeftPath = CMorphism[A] => (A => B)
+  type RightPath = F[A => B] => CMorphism[B]
   
   val algebraInstanceA: (A, CMorphism[A])
   val algebraInstanceB: (B, CMorphism[B])  
 
-  def there(from: LeftPath): RightPath
-  def back(from: RightPath): LeftPath
+  //Commutativity: both are going to get us to B
+  val leftPathInstance: LeftPath
+  val rightPathInstance: RightPath
+  
+  //TODO: realias pathes, like (F[A] => A => A) => B vs (F[A => B] => F[B]) => B
+  //TODO: show that both pathes can get us from F[A] to B
       
 }
 
