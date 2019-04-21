@@ -1,15 +1,15 @@
 //--------Functorial contracts--------------------------------------------------------------
 
-trait Functor[T, F[T] <: Functor[T, F]]{
+trait Functor[T, F[T] <: Functor[T, F]] {
   def map[U](f: T => U): F[U]
 }
 
-trait ApFunctor[T, F[T] <: ApFunctor[T, F]] extends Functor[T, F]{
+trait ApFunctor[T, F[T] <: ApFunctor[T, F]] extends Functor[T, F] {
   def ap[U](f: F[T => U]): F[U]
   def zip[U](right: F[U]): F[(T, U)] = ap(right.map(y => x => (x, y)))
 }
 
-trait Monad[T, F[T] <: Monad[T, F]] extends ApFunctor[T, F]{  
+trait Monad[T, F[T] <: Monad[T, F]] extends ApFunctor[T, F] {  
   def flatMap[U](f: T => F[U]): F[U]
   def ap[U](f: F[T => U]): F[U] = flatMap(x => f.map(func => func(x)))
 }
@@ -18,7 +18,7 @@ trait Lift[F[T] <: Monad[T, F]] {
   def lift[T](value: => T): F[T]
 }
 
-trait EndoFunctor[C, F[T] <: EndoFunctor[T, F]]{
+trait EndoFunctor[C, F[T] <: EndoFunctor[T, F]] {
   def map[A <: C, B <: C](f: A => B): F[B] 
 }
 
@@ -44,11 +44,11 @@ trait FAlgebra[C, A <: C, B <: C, F[T] <: EndoFunctor[T, F]] { //A and B are obj
       
 }
 
-trait NaturalTransformation[F[T] <: Functor[T, F], G[T] <: Functor[T, G]]{
+trait NaturalTransformation[F[T] <: Functor[T, F], G[T] <: Functor[T, G]] {
   def transform[T](source: F[T]): G[T]
 }
 
-trait Adjunction[C, D, X <: C, Y <: D, F[T] <: Functor[T, F], G[T] <: Functor[T, G]]{
+trait Adjunction[C, D, X <: C, Y <: D, F[T] <: Functor[T, F], G[T] <: Functor[T, G]] {
   type HomC = F[X] => Y //is it a distict set or do I need an index? invoke axiom of choice?
   type HomD = X => G[Y]
   
@@ -62,13 +62,13 @@ trait Adjunction[C, D, X <: C, Y <: D, F[T] <: Functor[T, F], G[T] <: Functor[T,
 
 //===================Duals==========================
 
-trait ContraFunctor[T, G[T] <: Functor[T, G]]{
+trait ContraFunctor[T, G[T] <: Functor[T, G]] {
   def contramap[U](f: U => T): G[U]
 }
 
 //==================Helpers=========================
 
-trait Showable[T]{
+trait Showable[T] {
   def show: T //unsafe
 }
 
