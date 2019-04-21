@@ -10,7 +10,7 @@ class FutureMonad[T](val underlying: Future[T], ec: ExecutionContext) extends Mo
 
 class FutureParZip[T](
     override val underlying: Future[T], 
-    ec: ExecutionContext) extends FutureMonad[T](underlying, ec){
+    ec: ExecutionContext) extends FutureMonad[T](underlying, ec) {
     
   override def zip[U](right: FutureMonad[U]): FutureMonad[(T, U)] = 
     new FutureMonad(underlying.zip(right.underlying), ec)
