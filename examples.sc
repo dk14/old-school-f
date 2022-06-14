@@ -2,7 +2,7 @@ import $file.model
 
 class Service[F[T] <: Monad[T, F]](elevator: Lift[F]) {
   import elevator._
-  def get(id: Int): F[Int] = lift{println("GET"); Thread.sleep(3000); 100}
+  def get(id: Int): F[Int] = lift{ println("GET"); Thread.sleep(3000); 100}
   def put(id: Int, value: Int): F[Unit] = lift{ Thread.sleep(3000); println("PUT")}
 }
 
